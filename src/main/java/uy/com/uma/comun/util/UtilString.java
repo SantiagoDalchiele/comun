@@ -508,4 +508,20 @@ public abstract class UtilString {
 		
 		return s;
 	}
+	
+	
+	
+	/**
+	 * Reemplaza cada ocurrencia de las letras especiales escapeadas en su código hexadecimal 
+	 * por su correspondencia en letras especiales como á, é, ñ, Ó, etc
+	 */
+	public static String quitarLetrasEspeciales (String s) {
+		if (s == null)
+			return s;
+		
+		for (int i = 0; i < LETRAS_ESPECIALES.length; i++)
+			s = s.replaceAll (LETRAS_ESPECIALES_XML[i],	LETRAS_ESPECIALES[i]);
+		
+		return s;
+	}	
 }

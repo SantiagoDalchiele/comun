@@ -2,7 +2,7 @@
   	<modelVersion>4.0.0</modelVersion>
 	<groupId>uy.com.uma</groupId>
 	<artifactId>comun</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>Comun</name>
 	<description>Logica de utileria de uso comun en todos los proyectos</description>
 	<properties>
