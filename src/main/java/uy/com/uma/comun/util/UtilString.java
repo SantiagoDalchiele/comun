@@ -23,18 +23,18 @@ import java.util.Map;
 public abstract class UtilString {
 
 	/** Caracteres especiales para los .xml de especificación de datos */
-    public static final String [] CARACTERES_ESPECIALES	= {"&", "<", ">", "Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú"};
+    public static final String [] CARACTERES_ESPECIALES	= {"&", "<", ">", "Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú", "¿"};
     
-    public static final String [] LETRAS_ESPECIALES	= {"Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú"};
+    public static final String [] LETRAS_ESPECIALES	= {"Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú", "¿"};
     
-    public static final String [] CARACTERES_ESPECIALES_XML	= {
+    public static final String [] CARACTERES_ESPECIALES_HEXA	= {
     	"&amp;", "&lt;", "&gt;", 
     	"\\\\u00C1", "\\\\u00C9", "\\\\u00CD", "\\\\u00D1", "\\\\u00D3", "\\\\u00DA",	
-    	"\\\\u00E1", "\\\\u00E9", "\\\\u00ED", "\\\\u00F1", "\\\\u00F3", "\\\\u00FA"};
+    	"\\\\u00E1", "\\\\u00E9", "\\\\u00ED", "\\\\u00F1", "\\\\u00F3", "\\\\u00FA", "\\\\u00BF"};
     
-    public static final String [] LETRAS_ESPECIALES_XML	= { 
+    public static final String [] LETRAS_ESPECIALES_HEXA	= { 
         	"\\\\u00C1", "\\\\u00C9", "\\\\u00CD", "\\\\u00D1", "\\\\u00D3", "\\\\u00DA",	
-        	"\\\\u00E1", "\\\\u00E9", "\\\\u00ED", "\\\\u00F1", "\\\\u00F3", "\\\\u00FA"};
+        	"\\\\u00E1", "\\\\u00E9", "\\\\u00ED", "\\\\u00F1", "\\\\u00F3", "\\\\u00FA", "\\\\u00BF"};
 	
     
     
@@ -474,7 +474,7 @@ public abstract class UtilString {
 			return s;
 		
 		for (int i = 0; i < CARACTERES_ESPECIALES.length; i++)
-			s = s.replaceAll (CARACTERES_ESPECIALES[i],	CARACTERES_ESPECIALES_XML[i]);
+			s = s.replaceAll (CARACTERES_ESPECIALES[i],	CARACTERES_ESPECIALES_HEXA[i]);
 		
 		return s;
 	}
@@ -482,14 +482,14 @@ public abstract class UtilString {
 	
 	
 	/**
-	 * Reemplaza cada ocurrencia de las letras especiales por su correspondencia
+	 * Reemplaza cada ocurrencia de las letras especiales por su correspondiente código hexadecimal
 	 */
 	public static String reemplazarLetrasEspeciales (String s) {
 		if (s == null)
 			return s;
 		
 		for (int i = 0; i < LETRAS_ESPECIALES.length; i++)
-			s = s.replaceAll (LETRAS_ESPECIALES[i],	LETRAS_ESPECIALES_XML[i]);
+			s = s.replaceAll (LETRAS_ESPECIALES[i],	LETRAS_ESPECIALES_HEXA[i]);
 		
 		return s;
 	}
@@ -504,7 +504,7 @@ public abstract class UtilString {
 			return s;
 		
 		for (int i = 0; i < CARACTERES_ESPECIALES.length; i++)
-			s = s.replaceAll (CARACTERES_ESPECIALES_XML[i], CARACTERES_ESPECIALES[i]);
+			s = s.replaceAll (CARACTERES_ESPECIALES_HEXA[i], CARACTERES_ESPECIALES[i]);
 		
 		return s;
 	}
@@ -520,7 +520,7 @@ public abstract class UtilString {
 			return s;
 		
 		for (int i = 0; i < LETRAS_ESPECIALES.length; i++)
-			s = s.replaceAll (LETRAS_ESPECIALES_XML[i],	LETRAS_ESPECIALES[i]);
+			s = s.replaceAll (LETRAS_ESPECIALES_HEXA[i],	LETRAS_ESPECIALES[i]);
 		
 		return s;
 	}	
