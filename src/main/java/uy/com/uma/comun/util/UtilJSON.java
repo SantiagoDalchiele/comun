@@ -32,4 +32,24 @@ public abstract class UtilJSON {
 	public static String getComillasJSON (String valor) {
 		return "\"" + valor + "\"";
 	}
+	
+	
+	
+	/**
+	 * Retorna el identificador de la propiedad entre comillas dobles seguido de dos puntos (:)
+	 * y valor entre comillas dobles (")
+	 */
+	public static String toJSON (String prop, String valor) {
+		return "\"" + prop + "\":\"" + valor + "\"";
+	}
+	
+	
+	
+	/**
+	 * Retorna el identificador de la propiedad entre comillas dobles seguido de dos puntos (:)
+	 * y valor entre comillas dobles (") y a continuación una coma (,)
+	 */
+	public static String toJSONplus (String prop, String valor) {
+		return toJSON(prop, valor) + ",";
+	}
 }
