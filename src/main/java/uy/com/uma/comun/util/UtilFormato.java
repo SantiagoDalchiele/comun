@@ -1,6 +1,5 @@
 package uy.com.uma.comun.util;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -90,25 +89,8 @@ public abstract class UtilFormato {
 		}
 	}
 
-	/**
-	 * Retorna solo la fecha (sin hora)
-	 */    
-	public static Date getFecha (Date d) {        
 	
-	    GregorianCalendar gc = new GregorianCalendar();
-	    
-	    gc.setTimeInMillis (d.getTime());
-	    gc.set (Calendar.HOUR_OF_DAY, 0);
-	    gc.set (Calendar.MINUTE, 0);
-	    gc.set (Calendar.SECOND, 0);
-	    gc.set (Calendar.MILLISECOND, 0);
-	    
-	    return new Date (gc.getTimeInMillis());
-	}
-
-
-
-
+	
 	/**
 	 * Retorna TRUE si ambos son nulos o son iguales
 	 */

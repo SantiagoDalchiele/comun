@@ -82,6 +82,8 @@ public abstract class UtilNumerico {
 			return "0" + getDosDigitos(dato);
 	}
 
+	
+	
 	/**
 	 * Redondea el valor segun la precision indicada
 	 */
@@ -90,6 +92,8 @@ public abstract class UtilNumerico {
 	    return imp.setScale (precision, BigDecimal.ROUND_HALF_EVEN).doubleValue();
 	}
 
+	
+	
 	/**
 	 * Redondea el valor segun la precision indicada
 	 */
@@ -105,4 +109,15 @@ public abstract class UtilNumerico {
 			return valor;
 	}
 
+	
+	
+	/**
+	 * Retorna el factorial de un entero
+	 */
+	public static int factorial (int n) {
+		if ((n == 0) || (n == 1))
+			return 1;
+		else
+			return n * factorial(n-1);
+	}
 }
