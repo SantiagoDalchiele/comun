@@ -2,9 +2,11 @@ package uy.com.uma.comun.util;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,16 +25,16 @@ import java.util.Map;
 public abstract class UtilString {
 
 	/** Caracteres especiales para los .xml de especificación de datos */
-    public static final String [] CARACTERES_ESPECIALES	= {"&", "<", ">", "Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú", "¿"};
+    protected static final String [] CARACTERES_ESPECIALES	= {"&", "<", ">", "Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú", "¿"};
     
-    public static final String [] LETRAS_ESPECIALES	= {"Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú", "¿"};
+    protected static final String [] LETRAS_ESPECIALES	= {"Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú", "¿"};
     
-    public static final String [] CARACTERES_ESPECIALES_HEXA	= {
+    protected static final String [] CARACTERES_ESPECIALES_HEXA	= {
     	"&amp;", "&lt;", "&gt;", 
     	"\\\\u00C1", "\\\\u00C9", "\\\\u00CD", "\\\\u00D1", "\\\\u00D3", "\\\\u00DA",	
     	"\\\\u00E1", "\\\\u00E9", "\\\\u00ED", "\\\\u00F1", "\\\\u00F3", "\\\\u00FA", "\\\\u00BF"};
     
-    public static final String [] LETRAS_ESPECIALES_HEXA	= { 
+    protected static final String [] LETRAS_ESPECIALES_HEXA	= { 
         	"\\\\u00C1", "\\\\u00C9", "\\\\u00CD", "\\\\u00D1", "\\\\u00D3", "\\\\u00DA",	
         	"\\\\u00E1", "\\\\u00E9", "\\\\u00ED", "\\\\u00F1", "\\\\u00F3", "\\\\u00FA", "\\\\u00BF"};
 	
@@ -240,7 +242,8 @@ public abstract class UtilString {
 	}
 
 	public static String getTexto (File archivo, String ret) throws IOException {
-		return getTexto (new FileReader (archivo), ret, true);
+		Reader r = new InputStreamReader(new FileInputStream(archivo), Charset.defaultCharset());
+		return getTexto(r, ret, true);
 	}
 	
 	public static String getTexto (Reader r) throws IOException {

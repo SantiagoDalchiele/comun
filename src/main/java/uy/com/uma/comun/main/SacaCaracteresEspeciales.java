@@ -1,7 +1,10 @@
 package uy.com.uma.comun.main;
 
-import java.io.FileWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 import uy.com.uma.comun.util.UtilFormato;
 import uy.com.uma.comun.util.UtilIO;
@@ -26,10 +29,11 @@ public class SacaCaracteresEspeciales {
 		else {
 			final String archIn = args[0];
 			final String archOut = args[1];
-			FileWriter fw = null;
+			Writer fw = null;
 			
 			try {
-				fw = new FileWriter(archOut);
+				File file = new File(archOut);
+				fw = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
 				System.out.println("Leyendo contenido de [" + archIn + "]");
 				final String contenido = UtilString.getTexto(archIn);
 				final String contenidoMod = UtilString.reemplazarLetrasEspeciales(contenido);

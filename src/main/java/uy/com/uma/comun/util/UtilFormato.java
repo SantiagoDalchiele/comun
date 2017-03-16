@@ -2,6 +2,7 @@ package uy.com.uma.comun.util;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Funciones de utileria para formato de datos
@@ -54,7 +55,7 @@ public abstract class UtilFormato {
 	        return new Boolean (Double.parseDouble(valor.toString()) != 0);
 	    
 	    else if (valor instanceof String) {
-	        String c = valor.toString().trim().toLowerCase();
+	        String c = valor.toString().trim().toLowerCase(Locale.ENGLISH);
 	        boolean v = UtilString.esUnoDe (c, new String [] {"s", "true", 
 	        		"si", "v", ".v.", "verdadero", "t", ".t.", "1", "on"});                
 	        return Boolean.valueOf (v); 
