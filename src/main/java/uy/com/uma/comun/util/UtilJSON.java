@@ -35,8 +35,9 @@ public abstract class UtilJSON {
 	public static JsonObject getJSONObject (Map<String, Object> propiedades) {
 		JsonObjectBuilder job = Json.createObjectBuilder();
 		
-		for (String key : propiedades.keySet()) {
-			Object obj = propiedades.get(key);
+		for (Map.Entry<String, Object> entry : propiedades.entrySet()) {
+			String key = entry.getKey();
+			Object obj = entry.getValue();			
 			
 			if (obj instanceof String)
 				job.add(key, (String) obj);
@@ -96,16 +97,10 @@ public abstract class UtilJSON {
 		if (UtilFormato.esNulo(valores))
 			return new Object[0];
 		else {
-			JsonReader reader = null;
-			
-			try {				
-				reader = Json.createReader(new StringReader("{\"valores\":[" + valores + "]}"));
-				return reader.readObject().getJsonArray("valores").toArray();
-			} catch (Exception e) {
-				return new Object[0];
-			} finally {
-				try { if (reader != null) reader.close(); } catch (Exception e) {}				
-			}
+			JsonReader reader = Json.createReader(new StringReader("{\"valores\":[" + valores + "]}"));
+			Object [] ret = reader.readObject().getJsonArray("valores").toArray();
+			reader.close();
+			return ret;
 		}		
 	}
 }

@@ -46,7 +46,7 @@ public abstract class UtilCollection {
 		long i = Long.MAX_VALUE;
 		
 		for (Iterator it = c.iterator(); it.hasNext(); i--)
-			l.put (new Long (i), it.next());
+			l.put (Long.valueOf(i), it.next());
 		
 		return l.values();
 	}
@@ -88,7 +88,7 @@ public abstract class UtilCollection {
 		else if (((a == null) && (b != null)) ||
 				((a != null) && (b == null)))
 			return false;
-		else if (a.size() != b.size())
+		else if ((a != null) && (b != null) && (a.size() != b.size()))
 			return false;
 		else
 			return incluido (a, b);

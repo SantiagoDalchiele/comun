@@ -10,8 +10,13 @@ import java.util.GregorianCalendar;
  */
 public class UtilDate {
 	
-	/** Fecha para sustituir por null */
-	public static final GregorianCalendar FECHA_NULA = UtilFormato.FECHA_NULA;
+	
+	/** 
+	 * Fecha para sustituir por null 
+	 */
+	public static GregorianCalendar FECHA_NULA() {
+		return UtilFormato.FECHA_NULA();
+	}
 	
 	
 	

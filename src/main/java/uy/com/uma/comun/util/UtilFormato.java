@@ -12,12 +12,16 @@ import java.util.Locale;
  */
 public abstract class UtilFormato {
 
-	/** Fecha para sustituir por null */
-	public static final GregorianCalendar FECHA_NULA = new GregorianCalendar (1900, 0, 1);
 	
-	
+	/** 
+	 * Fecha para sustituir por null 
+	 */
+	public static GregorianCalendar FECHA_NULA() {
+		return new GregorianCalendar (1900, 0, 1);
+	}
 	
 
+	
 	/**
 	 * Retorna true si un Object es nulo o es una instancia de String
 	 * y es igual a la cadena vacía
@@ -26,7 +30,7 @@ public abstract class UtilFormato {
 	    
 	    boolean esNulo = (valor == null) || 
 				((valor instanceof String) && (valor.toString().trim().equals(""))) ||
-				((valor instanceof GregorianCalendar) && (valor.equals(UtilFormato.FECHA_NULA)));
+				((valor instanceof GregorianCalendar) && (valor.equals(UtilFormato.FECHA_NULA())));
 	    
 	    if (esNulo)
 	        return true;
@@ -52,7 +56,7 @@ public abstract class UtilFormato {
 	        return (Boolean) valor;
 	    
 	    else if (valor instanceof Number)
-	        return new Boolean (Double.parseDouble(valor.toString()) != 0);
+	        return Boolean.valueOf(Double.parseDouble(valor.toString()) != 0);
 	    
 	    else if (valor instanceof String) {
 	        String c = valor.toString().trim().toLowerCase(Locale.ENGLISH);
@@ -71,21 +75,21 @@ public abstract class UtilFormato {
 		if (valor instanceof Long)
 			return (Long) valor;
 		else if (valor instanceof Integer)
-			return new Long (((Integer) valor).intValue());
+			return Long.valueOf (((Integer) valor).intValue());
 		else if (valor == null)
-			return new Long (0);
+			return Long.valueOf(0);
 		else if (valor instanceof Number)
-			return new Long (((Number) valor).longValue());
+			return Long.valueOf (((Number) valor).longValue());
 		else {
 			try {
-				return new Long (Long.parseLong (valor.toString()));
+				return Long.valueOf (Long.parseLong (valor.toString()));
 			} catch (NumberFormatException nfe) {
 				String v = valor.toString();
 				
 				if (v.indexOf('.') != -1)
-					return new Long (Long.parseLong (v.substring(0, v.indexOf('.'))));
+					return Long.valueOf (Long.parseLong (v.substring(0, v.indexOf('.'))));
 				else
-					return new Long (0);
+					return Long.valueOf(0);
 			}
 		}
 	}

@@ -51,27 +51,32 @@ public abstract class UtilNumerico {
 			return "0" + dato;
 	}
 
+	
+	
 	/**
 	 * Retorna la cantidad de digitos de un entero
 	 */
 	public static int getCantDigitos (long valor) {
-		return (new Long (valor).toString()).length();
+		return Long.toString(valor).length();
 	}
 
+	
+	
 	/**
 	 * Retorna un String con el numero, completando con ceros a la izquierda
 	 * para llegar al largo
 	 */
-	public static String getNumeroStr (long valor, int largo) {
-		
-		String ret = "";
+	public static String getNumeroStr (long valor, int largo) {		
+		StringBuffer ret = new StringBuffer();
 		
 		for (int i = 0; i < (largo - getCantDigitos (valor)); i++)
-			ret += "0";
+			ret.append("0");
 		
-		return ret + (new Long (valor)).toString();
+		return ret.toString() + Long.toString(valor);
 	}
 
+	
+	
 	/**
 	 * Retorna un String con el dato numerico, y si es menor a 100 le agrega un cero
 	 */
@@ -102,9 +107,9 @@ public abstract class UtilNumerico {
 			return valor;    	
 		else if (valor instanceof Number) {
 			if (precision == 0)
-				return new Long (Math.round (((Number) valor).doubleValue()));
+				return Long.valueOf (Math.round (((Number) valor).doubleValue()));
 			else
-				return new Double (redondear (((Number) valor).doubleValue(), precision));
+				return Double.valueOf (redondear (((Number) valor).doubleValue(), precision));
 		} else
 			return valor;
 	}

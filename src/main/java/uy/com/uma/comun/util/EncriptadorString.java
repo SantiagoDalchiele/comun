@@ -1,9 +1,13 @@
 package uy.com.uma.comun.util;
 
+import java.io.UnsupportedEncodingException;
 import java.security.KeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
 import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
@@ -89,9 +93,11 @@ public class EncriptadorString {
 			this.encriptador.init (Cipher.ENCRYPT_MODE, clave);
 			this.desencriptador = Cipher.getInstance (metodo);
 			this.desencriptador.init (Cipher.DECRYPT_MODE, clave);
-		} catch (Exception e) {
+		} catch (NoSuchPaddingException e) {
 			throw new KeyException ("Error al encriptar/desencriptar clave", e);
-		}			
+		} catch (NoSuchAlgorithmException e) {
+			throw new KeyException ("Error al encriptar/desencriptar clave", e);
+		}
 	}
 	
 	
@@ -109,7 +115,11 @@ public class EncriptadorString {
 				ks = new DESedeKeySpec (bc);
 			
 			return skf.generateSecret(ks);
-		} catch (Exception e) {
+		} catch (NoSuchAlgorithmException e) {
+			throw new KeyException ("Error al encriptar/desencriptar clave", e);
+		} catch (UnsupportedEncodingException e) {
+			throw new KeyException ("Error al encriptar/desencriptar clave", e);
+		} catch (InvalidKeySpecException e) {
 			throw new KeyException ("Error al encriptar/desencriptar clave", e);
 		}
 	}

@@ -8,7 +8,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,18 +27,20 @@ import java.util.Map;
 public abstract class UtilString {
 
 	/** Caracteres especiales para los .xml de especificación de datos */
-    protected static final String [] CARACTERES_ESPECIALES	= {"&", "<", ">", "Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú", "¿"};
+    protected static final List<String> CARACTERES_ESPECIALES = Collections.unmodifiableList(
+    		Arrays.asList("&", "<", ">", "Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú", "¿"));
     
-    protected static final String [] LETRAS_ESPECIALES	= {"Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú", "¿"};
+    protected static final List<String> LETRAS_ESPECIALES = Collections.unmodifiableList(
+    		Arrays.asList("Á", "É", "Í", "Ñ", "Ó", "Ú", "á", "é", "í", "ñ", "ó", "ú", "¿"));
     
-    protected static final String [] CARACTERES_ESPECIALES_HEXA	= {
-    	"&amp;", "&lt;", "&gt;", 
-    	"\\\\u00C1", "\\\\u00C9", "\\\\u00CD", "\\\\u00D1", "\\\\u00D3", "\\\\u00DA",	
-    	"\\\\u00E1", "\\\\u00E9", "\\\\u00ED", "\\\\u00F1", "\\\\u00F3", "\\\\u00FA", "\\\\u00BF"};
+    protected static final List<String> CARACTERES_ESPECIALES_HEXA = Collections.unmodifiableList(
+    		Arrays.asList("&amp;", "&lt;", "&gt;", 
+    				"\\\\u00C1", "\\\\u00C9", "\\\\u00CD", "\\\\u00D1", "\\\\u00D3", "\\\\u00DA",	
+    				"\\\\u00E1", "\\\\u00E9", "\\\\u00ED", "\\\\u00F1", "\\\\u00F3", "\\\\u00FA", "\\\\u00BF"));
     
-    protected static final String [] LETRAS_ESPECIALES_HEXA	= { 
+    protected static final List<String> LETRAS_ESPECIALES_HEXA = Collections.unmodifiableList(Arrays.asList(
         	"\\\\u00C1", "\\\\u00C9", "\\\\u00CD", "\\\\u00D1", "\\\\u00D3", "\\\\u00DA",	
-        	"\\\\u00E1", "\\\\u00E9", "\\\\u00ED", "\\\\u00F1", "\\\\u00F3", "\\\\u00FA", "\\\\u00BF"};
+        	"\\\\u00E1", "\\\\u00E9", "\\\\u00ED", "\\\\u00F1", "\\\\u00F3", "\\\\u00FA", "\\\\u00BF"));
 	
     
     
@@ -94,18 +98,17 @@ public abstract class UtilString {
 	 * Concatena todos los valores de la coleccion, poniendo entre medio de cada
 	 * valor el separador
 	 */
-	public static String concatenar (Collection c, String sep) {
-		
+	public static String concatenar (Collection c, String sep) {		
 		if (c == null)
 			return null;
 		else {
-			String ret = "";
+			StringBuffer ret = new StringBuffer();
 			if (sep == null) sep = "";
 		
 			for (Object o : c)
-				ret += o.toString() + sep;
+				ret.append(o.toString() + sep);
 			
-			return quitarUltimosCaracteres (ret, sep.length());
+			return quitarUltimosCaracteres (ret.toString(), sep.length());
 		}    		
 	}
 
@@ -194,8 +197,8 @@ public abstract class UtilString {
 	    char [] arr = valor.toCharArray(); 
 	    
 	    for (int i = 0; i < valor.length(); i++)
-	        if (! l.contains (new Character (arr[i])))
-	            l.add (new Character (arr[i]));                    
+	        if (! l.contains (Character.valueOf (arr[i])))
+	            l.add (Character.valueOf (arr[i]));                    
 	    
 	    char [] ret = new char [l.size()];        
 	    int i = 0;
@@ -211,16 +214,18 @@ public abstract class UtilString {
 	/**
 	 * Retorna el String dato repetido n veces
 	 */
-	public static String getNVeces (String dato, int veces) {
-		
+	public static String getNVeces (String dato, int veces) {		
 		if (veces == 0)
 			return "";
 		else if ((dato == null) || (veces <= 1))
 			return dato;
 		else {
-			String ret = "";    		
-			for (int i = 1; i <= veces; i++) ret += dato;    		
-			return ret;
+			StringBuffer ret = new StringBuffer();
+			
+			for (int i = 1; i <= veces; i++) 
+				ret.append(dato);
+			
+			return ret.toString();
 		}    	
 	}
 
@@ -363,19 +368,19 @@ public abstract class UtilString {
 		if ((p == null) || (p.length == 0) || (p[0] == null))
 			return "";
 		else {
-			String ret = "";
+			StringBuffer ret = new StringBuffer();
 			
 			for (int i = 0; i < p.length; i++) {
-				ret += "[";
+				ret.append("[");
 				
 				for (int j = 0; j < p[0].length; j++)
-					ret += p[i][j] + ",";
+					ret.append(p[i][j] + ",");
 				
 				if (p[i].length > 0)
-					ret = UtilString.quitarUltimosCaracteres (ret, 1) + "], ";				
+					ret = new StringBuffer(UtilString.quitarUltimosCaracteres (ret.toString(), 1) + "], ");				
 			}
 			
-			return UtilString.quitarUltimosCaracteres (ret, 2);
+			return UtilString.quitarUltimosCaracteres(ret.toString(), 2);
 		}
 	}
 	
@@ -425,7 +430,7 @@ public abstract class UtilString {
 	 */
 	public static String [] getArrayOfString (Object [] datos) {
 		if (datos == null)
-			return null;
+			return new String[0];
 		
 		String [] ret = new String [datos.length];
 		
@@ -476,8 +481,8 @@ public abstract class UtilString {
 		if (s == null)
 			return s;
 		
-		for (int i = 0; i < CARACTERES_ESPECIALES.length; i++)
-			s = s.replaceAll (CARACTERES_ESPECIALES[i],	CARACTERES_ESPECIALES_HEXA[i]);
+		for (int i = 0; i < CARACTERES_ESPECIALES.size(); i++)
+			s = s.replaceAll (CARACTERES_ESPECIALES.get(i),	CARACTERES_ESPECIALES_HEXA.get(i));
 		
 		return s;
 	}
@@ -491,8 +496,8 @@ public abstract class UtilString {
 		if (s == null)
 			return s;
 		
-		for (int i = 0; i < LETRAS_ESPECIALES.length; i++)
-			s = s.replaceAll (LETRAS_ESPECIALES[i],	LETRAS_ESPECIALES_HEXA[i]);
+		for (int i = 0; i < LETRAS_ESPECIALES.size(); i++)
+			s = s.replaceAll (LETRAS_ESPECIALES.get(i),	LETRAS_ESPECIALES_HEXA.get(i));
 		
 		return s;
 	}
@@ -506,8 +511,8 @@ public abstract class UtilString {
 		if (s == null)
 			return s;
 		
-		for (int i = 0; i < CARACTERES_ESPECIALES.length; i++)
-			s = s.replaceAll (CARACTERES_ESPECIALES_HEXA[i], CARACTERES_ESPECIALES[i]);
+		for (int i = 0; i < CARACTERES_ESPECIALES.size(); i++)
+			s = s.replaceAll (CARACTERES_ESPECIALES_HEXA.get(i), CARACTERES_ESPECIALES.get(i));
 		
 		return s;
 	}
@@ -522,8 +527,8 @@ public abstract class UtilString {
 		if (s == null)
 			return s;
 		
-		for (int i = 0; i < LETRAS_ESPECIALES.length; i++)
-			s = s.replaceAll (LETRAS_ESPECIALES_HEXA[i],	LETRAS_ESPECIALES[i]);
+		for (int i = 0; i < LETRAS_ESPECIALES.size(); i++)
+			s = s.replaceAll (LETRAS_ESPECIALES_HEXA.get(i), LETRAS_ESPECIALES.get(i));
 		
 		return s;
 	}	
